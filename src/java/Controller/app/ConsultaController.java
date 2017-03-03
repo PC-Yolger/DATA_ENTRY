@@ -141,7 +141,7 @@ public class ConsultaController {
         JSONArray content = obj.getJSONArray("lineaFactura");
         try {
             OutputStream file = new FileOutputStream(new File("C:\\" + factura.getTesOperacionVc() + "-" + factura.getTesUsuarioModificacionVc() + ".pdf"));
-            Document doc = new Document();
+            Document doc = new Document(); 
             doc.setMargins(0f, 0f, 0f, 0f);
             PdfWriter.getInstance(doc, file);
             doc.open();
