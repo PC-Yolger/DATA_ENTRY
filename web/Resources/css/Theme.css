@@ -1,0 +1,44 @@
+html, body, .container-fluid, .container-fluid > div{
+    height: 100% !important;
+    
+}
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {height: 550px}
+/* Set gray background color and 100% height */
+.sidenav {
+    background-color: #7DB51E;
+    height: 100%;
+}
+/* On small screens, set height to 'auto' for the grid */
+@media screen and (max-width: 767px) {
+    .row.content {height: auto;} 
+}
+body{
+    background-color: #FFFFFA;
+}
+
+a{
+    color: white;
+}
+.nav-pills > li.active > a{
+    background-color: white !important;
+    color: #7DB51E !important;
+}
+
+label, h1, h2, h3, h4, h5, h6, p{
+    color: #113F7C;
+}
+
+h4{
+    font-weight: bold;
+}
+
+.datepicker td{
+    cursor: pointer !important;
+}
+
+.card{
+    background: white;
+    padding: 0px 50px 30px 50px;
+    margin: 10px;
+}

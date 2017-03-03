@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-03-2017 11:50:59 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="Entity.app.TblServicioFactura" table="tbl_servicio_factura" schema="servicio">
+        <id name="tesIdFacturaBi" type="int">
+            <column name="tes_id_factura_bi" />
+            <generator class="assigned" />
+        </id>
+        <property name="tesCodigoSintesisBi" type="java.lang.Integer">
+            <column name="tes_codigo_sintesis_bi" />
+        </property>
+        <property name="tesOperacionVc" type="string">
+            <column name="tes_operacion_vc" length="20" />
+        </property>
+        <property name="tesNitVc" type="string">
+            <column name="tes_nit_vc" length="20" />
+        </property>
+        <property name="tesNombreVc" type="string">
+            <column name="tes_nombre_vc" length="100" />
+        </property>
+        <property name="tesCuentaVc" type="string">
+            <column name="tes_cuenta_vc" length="50" />
+        </property>
+        <property name="tesFacturaTexto" type="string">
+            <column name="tes_factura_texto" />
+        </property>
+        <property name="tesPagoRequest" type="string">
+            <column name="tes_pago_request" />
+        </property>
+        <property name="tesPagoResponse" type="string">
+            <column name="tes_pago_response" />
+        </property>
+        <property name="tesEstadoBt" type="java.lang.Boolean">
+            <column name="tes_estado_bt" />
+        </property>
+        <property name="tesUsuarioCreacionVc" type="string">
+            <column name="tes_usuario_creacion_vc" length="10" />
+        </property>
+        <property name="tesFechaCreacionDt" type="timestamp">
+            <column name="tes_fecha_creacion_dt" length="35" />
+        </property>
+        <property name="tesUsuarioModificacionVc" type="string">
+            <column name="tes_usuario_modificacion_vc" length="10" />
+        </property>
+        <property name="tesFechaModificacionDt" type="timestamp">
+            <column name="tes_fecha_modificacion_dt" length="35" />
+        </property>
+        <property name="testIdDireccionBi" type="java.lang.Integer">
+            <column name="test_id_direccion_bi" />
+        </property>
+    </class>
+</hibernate-mapping>

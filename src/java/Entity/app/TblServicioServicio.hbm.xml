@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-03-2017 11:50:59 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="Entity.app.TblServicioServicio" table="tbl_servicio_servicio" schema="servicio">
+        <id name="tesIdServicioBi" type="int">
+            <column name="tes_id_servicio_bi" />
+            <generator class="assigned" />
+        </id>
+        <property name="tesTipoMovVc" type="string">
+            <column name="tes_tipo_mov_vc" length="20" />
+        </property>
+        <property name="tesCodigoViaVc" type="string">
+            <column name="tes_codigo_via_vc" length="20" />
+        </property>
+        <property name="tesDetalleVc" type="string">
+            <column name="tes_detalle_vc" length="50" />
+        </property>
+        <property name="tesCuentaVc" type="string">
+            <column name="tes_cuenta_vc" length="50" />
+        </property>
+        <property name="tesCuentaContableVc" type="string">
+            <column name="tes_cuenta_contable_vc" length="50" />
+        </property>
+        <property name="tesCodigoSintesisBi" type="java.lang.Integer">
+            <column name="tes_codigo_sintesis_bi" />
+        </property>
+        <property name="tesComisionDc" type="big_decimal">
+            <column name="tes_comision_dc" precision="131089" scale="0" />
+        </property>
+        <property name="tesEstadoBt" type="java.lang.Boolean">
+            <column name="tes_estado_bt" />
+        </property>
+        <property name="tesUsuarioCreacionVc" type="string">
+            <column name="tes_usuario_creacion_vc" length="10" />
+        </property>
+        <property name="tesFechaCreacionDt" type="timestamp">
+            <column name="tes_fecha_creacion_dt" length="35" />
+        </property>
+        <property name="tesUsuarioModificacionVc" type="string">
+            <column name="tes_usuario_modificacion_vc" length="10" />
+        </property>
+        <property name="tesFechaModificacionDt" type="timestamp">
+            <column name="tes_fecha_modificacion_dt" length="35" />
+        </property>
+        <property name="qrX" type="big_decimal">
+            <column name="qr_x" precision="5" />
+        </property>
+        <property name="qrY" type="big_decimal">
+            <column name="qr_y" precision="5" />
+        </property>
+        <property name="qrScale" type="big_decimal">
+            <column name="qr_scale" precision="5" />
+        </property>
+    </class>
+</hibernate-mapping>
