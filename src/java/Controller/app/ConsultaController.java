@@ -144,7 +144,7 @@ public class ConsultaController {
             Document doc = new Document();
             doc.setMargins(0f, 0f, 0f, 0f);
             PdfWriter.getInstance(doc, file);
-            doc.open();
+            doc.open(); 
             BaseFont base = BaseFont.createFont("c:/windows/fonts/Consola.ttf", BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
             Font f = new Font(base, 7.0f, Font.NORMAL, BaseColor.BLACK);
             String QR = "";
