@@ -5,11 +5,11 @@
  */
 package Common.app;
 
+import Controller.app.ConsultaController;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
@@ -27,6 +27,12 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Image;
+import java.net.MalformedURLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,7 +40,27 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
  */
 public class QR {
 
-    public static void createQRCode(String qrCodeData, String filePath, String charset, Map hintMap, int qrCodeheight, int qrCodewidth) throws WriterException, IOException {
+    public static Image create(String content) {
+        try {
+            File file = File.createTempFile("QR_TEMP", ".PNG");
+            try {
+                String charset = "UTF-8"; // or "ISO-8859-1"
+                Map hintMap = new HashMap();
+                hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+                createQRCode(content, file.getAbsolutePath(), charset, hintMap, 200, 200);
+            } catch (WriterException ex) {
+                Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return Image.getInstance(file.getAbsolutePath());
+        } catch (Exception ex) {
+            Logger.getLogger(QR.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    private static void createQRCode(String qrCodeData, String filePath, String charset, Map hintMap, int qrCodeheight, int qrCodewidth) throws WriterException, IOException {
         BitMatrix matrix = new MultiFormatWriter().encode(new String(qrCodeData.getBytes(charset), charset), BarcodeFormat.QR_CODE, qrCodewidth, qrCodeheight, hintMap);
         MatrixToImageWriter.writeToFile(matrix, filePath.substring(filePath.lastIndexOf('.') + 1), new File(filePath));
     }

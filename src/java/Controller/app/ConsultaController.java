@@ -11,18 +11,15 @@ import Entity.app.TblServicioServicio;
 import Repository.DireccionRepository;
 import Repository.FacturaRepository;
 import Repository.ServicioRepository;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.WriterException;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,14 +27,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.print.Doc;
 import javax.print.DocFlavor;
-import javax.print.DocFlavor.URL;
 import javax.print.DocPrintJob;
 import javax.print.PrintException;
 import javax.print.PrintService;
@@ -140,14 +134,15 @@ public class ConsultaController {
         JSONObject obj = new JSONObject(data);
         JSONArray content = obj.getJSONArray("lineaFactura");
         try {
-            OutputStream file = new FileOutputStream(new File("C:\\" + factura.getTesOperacionVc() + "-" + factura.getTesUsuarioModificacionVc() + ".pdf"));
+            File _file = File.createTempFile("temp_file", ".pdf");
+            OutputStream file = new FileOutputStream(_file);
             Document doc = new Document();
             doc.setMargins(0f, 0f, 0f, 0f);
             PdfWriter.getInstance(doc, file);
-            doc.open(); 
+            doc.open();
             BaseFont base = BaseFont.createFont("c:/windows/fonts/Consola.ttf", BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
             Font f = new Font(base, 7.0f, Font.NORMAL, BaseColor.BLACK);
-            String QR = "";
+            String qr = "";
             for (Object item : content) {
                 Paragraph paragraph = new Paragraph(item.toString(), f);
                 if (item.toString().contains("<b>")) {
@@ -156,10 +151,8 @@ public class ConsultaController {
                 }
                 if (item.toString().contains("<QR>")) {
                     TblServicioServicio servicio = servicios.search(factura.getTesCodigoSintesisBi().toString());
-                    QR = item.toString().substring(4);
-                    File temp = File.createTempFile("QR_TEMP", ".PNG");
-                    generateQR(temp.getAbsolutePath(), QR);
-                    Image image = Image.getInstance(temp.getAbsolutePath());
+                    qr = item.toString().substring(4);
+                    Image image = QR.create(qr);
                     image.setAbsolutePosition(servicio.getQrX().floatValue(), servicio.getQrY().floatValue());
                     image.scaleAbsolute(servicio.getQrScale().floatValue(), servicio.getQrScale().floatValue());
                     doc.add(image);
@@ -169,7 +162,7 @@ public class ConsultaController {
             }
             doc.close();
             file.close();
-
+            download(_file);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DocumentException ex) {
@@ -179,17 +172,11 @@ public class ConsultaController {
         }
     }
 
-    public void generateQR(String filePath, String text) {
+    public void download(File downloadFile) {
         try {
-            String charset = "UTF-8"; // or "ISO-8859-1"
-            Map hintMap = new HashMap();
-            hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-            QR.createQRCode(text, filePath, charset, hintMap, 200, 200);
-        } catch (WriterException ex) {
-            Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
+            Desktop.getDesktop().open(downloadFile);
         } catch (IOException ex) {
             Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 }
