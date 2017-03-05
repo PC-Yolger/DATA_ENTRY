@@ -33,7 +33,7 @@
                 <select id="servicio" class="form-control" onchange="Search()">
                     <option value="">TODAS</option>
                     <c:forEach items="${lstServicios}" var="item">
-                        <option value="${item.tesIdServicioBi}" ${item.tesIdServicioBi == servicio ? "selected" : ""}>${item.tesDetalleVc}</option>
+                        <option value="${item.tesCodigoSintesisBi}" ${item.tesCodigoSintesisBi == servicio ? "selected" : ""}>${item.tesDetalleVc}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -50,6 +50,7 @@
                 <th>CUENTA</th>
                 <th>FACTURA</th>
                 <th>DIRECCION</th>
+                <th>PDF</th>
                 <th>IMPRIMIR</th>
             </tr>
             <c:forEach items="${lstFacturas}" var="item">
@@ -62,7 +63,8 @@
                     <td>${item.tesCuentaVc}</td>
                     <td>${item.tesFacturaTexto}</td>
                     <td>${item.direccion}</td>
-                    <td><a href="#" onclick="PDF(${item.tesIdFacturaBi})" id="${item.tesIdFacturaBi}" class="btn btn-primary center-block">IMPRIMIR</a></td>
+                    <td><a href="javascript:void(0)" onclick="PDF(${item.tesIdFacturaBi})" id="${item.tesIdFacturaBi}" class="btn btn-primary center-block">PDF</a></td>
+                    <td><a href="javascript:void(0)" class="btn btn-primary center-block">IMPRIMIR</a></td>
                 </tr>
             </c:forEach>
         </table>

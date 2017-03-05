@@ -34,6 +34,22 @@ public class ServicioRepository {
         try {
             s.beginTransaction();
             Criteria criteria = s.createCriteria(TblServicioServicio.class);
+            criteria.add(Restrictions.eq("tesCodigoSintesisBi", Integer.parseInt(id)));
+            List<TblServicioServicio> lst = criteria.list();
+            obj = (TblServicioServicio) (lst.size() > 0 ? lst.get(0) : null);
+            s.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+    
+    public TblServicioServicio searchId(String id) {
+        Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+        TblServicioServicio obj = null;
+        try {
+            s.beginTransaction();
+            Criteria criteria = s.createCriteria(TblServicioServicio.class);
             criteria.add(Restrictions.eq("tesIdServicioBi", Integer.parseInt(id)));
             List<TblServicioServicio> lst = criteria.list();
             obj = (TblServicioServicio) (lst.size() > 0 ? lst.get(0) : null);
@@ -56,11 +72,11 @@ public class ServicioRepository {
         }
     }
 
-    public void Remove(TblServicioServicio factura) {
+    public void Remove(TblServicioServicio servicio) {
         Session s = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             s.beginTransaction();
-            s.delete(factura);
+            s.delete(servicio);
             s.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,11 +84,11 @@ public class ServicioRepository {
         }
     }
 
-    public void Edit(TblServicioServicio factura) {
+    public void Edit(TblServicioServicio servicio) {
         Session s = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             s.beginTransaction();
-            s.update(factura);
+            s.update(servicio);
             s.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
