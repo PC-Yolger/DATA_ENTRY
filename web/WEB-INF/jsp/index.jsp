@@ -12,7 +12,7 @@
                     <ul class="nav nav-pills nav-stacked" style="margin-top: 20px;">
                         <li><a href="${contextRoot}/Consulta/">Consulta</a></li>
                         <li><a href="#section3">Reporte</a></li>
-                        <li><a href="#section3">Parametros</a></li>
+                        <li><a href="${contextRoot}/Parametro/">Parametros</a></li>
                     </ul><br>
                 </div>
                 <br>
@@ -23,6 +23,9 @@
                     </c:if>
                     <c:if test="${consulta == true}">
                         <%@include file="Consulta.jsp" %>
+                    </c:if>
+                    <c:if test="${parametro == true}">
+                        <%@include file="Parametro.jsp" %>
                     </c:if>
                 </div>
             </div>

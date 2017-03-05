@@ -60,6 +60,10 @@ public class ConsultaController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String consulta(Model m) {
         List<TblServicioFactura> _facturas = facturas.getAll();
+        for (TblServicioFactura item : _facturas) {
+            item.setServicio(servicios.search(item.getTesCodigoSintesisBi().toString()).getTesDetalleVc());
+            item.setDireccion(direcciones.search(item.getTestIdDireccionBi().toString()).getTesCiudadVc());
+        }
         m.addAttribute("lstFacturas", _facturas);
         m.addAttribute("lstDirecciones", direcciones.getAll());
         m.addAttribute("lstServicios", servicios.getAll());
@@ -80,10 +84,13 @@ public class ConsultaController {
             @RequestParam("end") String end,
             @RequestParam("servicio") String servicio,
             Model m) {
-        List<TblServicioFactura> lstFactura;
-        lstFactura = facturas.Search(sucursal, servicio);
+        List<TblServicioFactura> _facturas = facturas.Search(sucursal, servicio);
+        for (TblServicioFactura item : _facturas) {
+            item.setServicio(servicios.search(item.getTesCodigoSintesisBi().toString()).getTesDetalleVc());
+            item.setDireccion(direcciones.search(item.getTestIdDireccionBi().toString()).getTesCiudadVc());
+        }
 //        facturaprint();
-        m.addAttribute("lstFacturas", lstFactura);
+        m.addAttribute("lstFacturas", _facturas);
         m.addAttribute("lstDirecciones", direcciones.getAll());
         m.addAttribute("lstServicios", servicios.getAll());
         m.addAttribute("consulta", true);

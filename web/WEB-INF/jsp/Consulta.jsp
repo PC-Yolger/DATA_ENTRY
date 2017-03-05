@@ -55,13 +55,13 @@
             <c:forEach items="${lstFacturas}" var="item">
                 <tr>
                     <td>${item.tesIdFacturaBi}</td>
-                    <td>${item.tesCodigoSintesisBi}</td>
+                    <td>${item.servicio}</td>
                     <td>${item.tesOperacionVc}</td>
                     <td>${item.tesNitVc}</td>
                     <td>${item.tesNombreVc}</td>
                     <td>${item.tesCuentaVc}</td>
                     <td>${item.tesFacturaTexto}</td>
-                    <td>${item.testIdDireccionBi}</td>
+                    <td>${item.direccion}</td>
                     <td><a href="#" onclick="PDF(${item.tesIdFacturaBi})" id="${item.tesIdFacturaBi}" class="btn btn-primary center-block">IMPRIMIR</a></td>
                 </tr>
             </c:forEach>

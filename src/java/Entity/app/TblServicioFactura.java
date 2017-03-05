@@ -25,6 +25,24 @@ public class TblServicioFactura  implements java.io.Serializable {
      private String tesUsuarioModificacionVc;
      private Date tesFechaModificacionDt;
      private Integer testIdDireccionBi;
+     private String servicio;
+     private String direccion;
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String Direccion) {
+        this.direccion = Direccion;
+    }
+
+    public String getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(String Servicio) {
+        this.servicio = Servicio;
+    }
 
     public TblServicioFactura() {
     }

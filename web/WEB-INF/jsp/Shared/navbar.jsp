@@ -10,9 +10,9 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="${contextRoot}/consulta">Consulta</a></li>
+                <li><a href="${contextRoot}/Consulta">Consulta</a></li>
                 <li><a href="#">Reporte</a></li>
-                <li><a href="#">Parametros</a></li>
+                <li><a href="${contextRoot}/Parametro">Parametros</a></li>
             </ul>
         </div>
     </div>
