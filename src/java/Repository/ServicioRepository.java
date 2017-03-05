@@ -5,9 +5,12 @@
  */
 package Repository;
 
-import Entity.app.TblServicioServicio;import Model.app.HibernateUtil;
+import Entity.app.TblServicioServicio;
+import Model.app.HibernateUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -25,9 +28,15 @@ public class ServicioRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Collections.sort(lst, new Comparator<TblServicioServicio>() {
+            @Override
+            public int compare(TblServicioServicio s, TblServicioServicio other) {
+                return s.getTesIdServicioBi() - other.getTesIdServicioBi();
+            }
+        });
         return lst;
     }
-    
+
     public TblServicioServicio search(String id) {
         Session s = HibernateUtil.getSessionFactory().getCurrentSession();
         TblServicioServicio obj = null;
@@ -43,7 +52,7 @@ public class ServicioRepository {
         }
         return obj;
     }
-    
+
     public TblServicioServicio searchId(String id) {
         Session s = HibernateUtil.getSessionFactory().getCurrentSession();
         TblServicioServicio obj = null;

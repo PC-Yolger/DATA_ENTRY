@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,6 +66,12 @@ public class ConsultaController {
             item.setServicio(servicios.search(item.getTesCodigoSintesisBi().toString()).getTesDetalleVc());
             item.setDireccion(direcciones.search(item.getTestIdDireccionBi().toString()).getTesCiudadVc());
         }
+        Collections.sort(_facturas, new Comparator<TblServicioFactura>() {
+            @Override
+            public int compare(TblServicioFactura o1, TblServicioFactura o2) {
+                return o1.getTesIdFacturaBi() - o2.getTesIdFacturaBi();
+            }
+        });
         m.addAttribute("lstFacturas", _facturas);
         m.addAttribute("lstDirecciones", direcciones.getAll());
         m.addAttribute("lstServicios", servicios.getAll());
@@ -89,6 +97,12 @@ public class ConsultaController {
             item.setServicio(servicios.search(item.getTesCodigoSintesisBi().toString()).getTesDetalleVc());
             item.setDireccion(direcciones.search(item.getTestIdDireccionBi().toString()).getTesCiudadVc());
         }
+        Collections.sort(_facturas, new Comparator<TblServicioFactura>() {
+            @Override
+            public int compare(TblServicioFactura o1, TblServicioFactura o2) {
+                return o1.getTesIdFacturaBi() - o2.getTesIdFacturaBi();
+            }
+        });
 //        facturaprint();
         m.addAttribute("lstFacturas", _facturas);
         m.addAttribute("lstDirecciones", direcciones.getAll());

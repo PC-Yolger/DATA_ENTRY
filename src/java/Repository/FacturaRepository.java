@@ -8,6 +8,8 @@ package Repository;
 import Entity.app.TblServicioFactura;
 import Model.app.HibernateUtil;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -30,6 +32,12 @@ public class FacturaRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Collections.sort(lst, new Comparator<TblServicioFactura>() {
+            @Override
+            public int compare(TblServicioFactura o1, TblServicioFactura o2) {
+                return o1.getTesIdFacturaBi() - o2.getTesIdFacturaBi();
+            }
+        });
         return lst;
     }
 
