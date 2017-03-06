@@ -64,7 +64,7 @@
                     <td>${item.tesFacturaTexto}</td>
                     <td>${item.direccion}</td>
                     <td><a href="javascript:void(0)" onclick="PDF(${item.tesIdFacturaBi})" id="${item.tesIdFacturaBi}" class="btn btn-primary center-block">PDF</a></td>
-                    <td><a href="javascript:void(0)" class="btn btn-primary center-block">IMPRIMIR</a></td>
+                    <td><a href="javascript:void(0)" onclick="PRINT(${item.tesIdFacturaBi})" id="${item.tesIdFacturaBi}" class="btn btn-primary center-block">IMPRIMIR</a></td>
                 </tr>
             </c:forEach>
         </table>
@@ -94,6 +94,16 @@
         $.ajax({
             type: "GET",
             url: "/Consulta/pdf",
+            data: {"id": id},
+            success: function(json_data) {
+                alert("COMPLETADo");
+            }
+        });
+    }
+    function PRINT(id) {
+        $.ajax({
+            type: "GET",
+            url: "/Consulta/print",
             data: {"id": id},
             success: function(json_data) {
                 alert("COMPLETADo");

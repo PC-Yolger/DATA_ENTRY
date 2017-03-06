@@ -21,6 +21,7 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,6 +44,7 @@ import javax.print.attribute.DocAttributeSet;
 import javax.print.attribute.HashDocAttributeSet;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Sides;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -82,7 +84,6 @@ public class ConsultaController {
         now.add(Calendar.MONTH, -1);
         m.addAttribute("init", formats.format(now.getTime()));
         m.addAttribute("sucursal", "");
-        //        facturaprint();
         return "index";
     }
 
@@ -103,7 +104,6 @@ public class ConsultaController {
                 return o1.getTesIdFacturaBi() - o2.getTesIdFacturaBi();
             }
         });
-//        facturaprint();
         m.addAttribute("lstFacturas", _facturas);
         m.addAttribute("lstDirecciones", direcciones.getAll());
         m.addAttribute("lstServicios", servicios.getAll());
@@ -120,42 +120,44 @@ public class ConsultaController {
         return "Consulta";
     }
 
-    public void facturaprint() {
-        PrintService services = PrintServiceLookup.lookupDefaultPrintService();
-        if (services != null) {
-            try {
-                String printServiceName = services.getName();
-                String streng = "Let's try and print this";
-                DocFlavor _flavor = DocFlavor.STRING.TEXT_PLAIN;
-                DocPrintJob _job = services.createPrintJob();
-                PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
-                DocAttributeSet das = new HashDocAttributeSet();
-                Doc _doc = new SimpleDoc(streng, _flavor, das);
-                _job.print(_doc, pras);
-                System.out.println("Print Service Name is " + printServiceName);
-            } catch (PrintException ex) {
-                System.out.println("ERROR:" + ex.getMessage());
-                Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            System.out.println("No default print service found");
-        }
-    }
-
     @RequestMapping(value = "/pdf", method = RequestMethod.GET)
     public void SearchFactura(@RequestParam("id") String id) {
         TblServicioFactura factura = facturas.Search(id);
         if (!"".equals(factura.getTesPagoResponse())) {
-            createPDF(factura);
+            File file = createPDF(factura);
+            if (file != null) {
+                download(file);
+            }
         }
     }
 
-    public void createPDF(TblServicioFactura factura) {
+    @RequestMapping(value = "/print", method = RequestMethod.GET)
+    public void PrintFactura(@RequestParam("id") String id) {
+        TblServicioFactura factura = facturas.Search(id);
+        if (!"".equals(factura.getTesPagoResponse())) {
+            try {
+                File file = createPDF(factura);
+                FileInputStream fis = new FileInputStream(file);
+                DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
+                Doc pdfDoc = new SimpleDoc(fis, flavor, null);
+                PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+                DocPrintJob printJob = service.createPrintJob();
+                PrintRequestAttributeSet attributeSet = new HashPrintRequestAttributeSet();
+                printJob.print(pdfDoc, attributeSet);
+                fis.close();
+            } catch (Exception ex) {
+                Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
+    }
+
+    private File createPDF(TblServicioFactura factura) {
         String data = factura.getTesPagoResponse();
         JSONObject obj = new JSONObject(data);
         JSONArray content = obj.getJSONArray("lineaFactura");
+        File _file = null;
         try {
-            File _file = File.createTempFile("temp_file", ".pdf");
+            _file = File.createTempFile("temp_file", ".pdf");
             OutputStream file = new FileOutputStream(_file);
             Document doc = new Document();
             doc.setMargins(0f, 0f, 0f, 0f);
@@ -183,7 +185,6 @@ public class ConsultaController {
             }
             doc.close();
             file.close();
-            download(_file);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DocumentException ex) {
@@ -191,9 +192,10 @@ public class ConsultaController {
         } catch (IOException ex) {
             Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return _file;
     }
 
-    public void download(File downloadFile) {
+    private void download(File downloadFile) {
         try {
             Desktop.getDesktop().open(downloadFile);
         } catch (IOException ex) {
