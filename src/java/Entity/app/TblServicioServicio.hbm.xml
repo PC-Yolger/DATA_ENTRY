@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 02-03-2017 11:50:59 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 07-03-2017 08:10:26 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="Entity.app.TblServicioServicio" table="tbl_servicio_servicio" schema="servicio">
         <id name="tesIdServicioBi" type="int">
@@ -52,6 +52,24 @@
         </property>
         <property name="qrScale" type="big_decimal">
             <column name="qr_scale" precision="5" />
+        </property>
+        <property name="marginLeft" type="big_decimal">
+            <column name="margin_left" precision="5" />
+        </property>
+        <property name="marginRight" type="big_decimal">
+            <column name="margin_right" precision="5" />
+        </property>
+        <property name="marginTop" type="big_decimal">
+            <column name="margin_top" precision="5" />
+        </property>
+        <property name="marginBottom" type="big_decimal">
+            <column name="margin_bottom" precision="5" />
+        </property>
+        <property name="delimitador" type="string">
+            <column name="delimitador" length="50" />
+        </property>
+        <property name="fontSize" type="java.lang.Integer">
+            <column name="font_size" />
         </property>
     </class>
 </hibernate-mapping>

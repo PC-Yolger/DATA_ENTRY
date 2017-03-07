@@ -7,17 +7,17 @@
         <%@include file="Shared/navbar.jsp" %>
         <div class="container-fluid">
             <div class="row content">
-                <div class="col-sm-3 sidenav hidden-xs" style="padding-top: 10px;">
+                <div class="col-sm-3 sidenav hidden-xs" style="padding-top: 10px; position: fixed;">
                     <img src="${img}/logotipo.png" class="img-responsive"/>
                     <ul class="nav nav-pills nav-stacked" style="margin-top: 20px;">
-                        <li><a href="${contextRoot}/Consulta/">Consulta</a></li>
+                        <li><a href="${contextRoot}/Web/Consulta/">Consulta</a></li>
                         <li><a href="#section3">Reporte</a></li>
-                        <li><a href="${contextRoot}/Parametro/">Parametros</a></li>
+                        <li><a href="${contextRoot}/Web/Parametro/">Parametros</a></li>
                     </ul><br>
                 </div>
                 <br>
                 
-                <div id="content" class="col-sm-9">
+                <div id="content" class="col-sm-9" style="margin-left: 25%">
                     <c:if test="${home == true}">
                         <%@include file="Home.jsp" %>
                     </c:if>

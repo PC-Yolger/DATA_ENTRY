@@ -83,7 +83,8 @@
         var servicio = $("#servicio").val();
         $.ajax({
             type: "GET",
-            url: "/Consulta/Search",
+            cache: false,
+            url: "/Web/Consulta/Search",
             data: {"sucursal": sucursal, "init": "1", "end": "2", "servicio": servicio},
             success: function(json_data) {
                 $("#content").html(json_data);
@@ -93,7 +94,8 @@
     function PDF(id) {
         $.ajax({
             type: "GET",
-            url: "/Consulta/pdf",
+            cache: false,
+            url: "/Web/Consulta/pdf",
             data: {"id": id},
             success: function(json_data) {
                 alert("COMPLETADo");
@@ -103,7 +105,8 @@
     function PRINT(id) {
         $.ajax({
             type: "GET",
-            url: "/Consulta/print",
+            cache: false,
+            url: "/Web/Consulta/print",
             data: {"id": id},
             success: function(json_data) {
                 alert("COMPLETADo");

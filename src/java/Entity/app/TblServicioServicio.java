@@ -1,5 +1,5 @@
 package Entity.app;
-// Generated 02-03-2017 11:50:58 PM by Hibernate Tools 3.6.0
+// Generated 07-03-2017 08:10:25 AM by Hibernate Tools 3.6.0
 
 
 import java.math.BigDecimal;
@@ -27,6 +27,21 @@ public class TblServicioServicio  implements java.io.Serializable {
      private BigDecimal qrX;
      private BigDecimal qrY;
      private BigDecimal qrScale;
+     private BigDecimal marginLeft;
+     private BigDecimal marginRight;
+     private BigDecimal marginTop;
+     private BigDecimal marginBottom;
+     private String delimitador;
+     private Integer fontSize;
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+     private String direccion;
 
     public TblServicioServicio() {
     }
@@ -35,7 +50,7 @@ public class TblServicioServicio  implements java.io.Serializable {
     public TblServicioServicio(int tesIdServicioBi) {
         this.tesIdServicioBi = tesIdServicioBi;
     }
-    public TblServicioServicio(int tesIdServicioBi, String tesTipoMovVc, String tesCodigoViaVc, String tesDetalleVc, String tesCuentaVc, String tesCuentaContableVc, Integer tesCodigoSintesisBi, BigDecimal tesComisionDc, Boolean tesEstadoBt, String tesUsuarioCreacionVc, Date tesFechaCreacionDt, String tesUsuarioModificacionVc, Date tesFechaModificacionDt, BigDecimal qrX, BigDecimal qrY, BigDecimal qrScale) {
+    public TblServicioServicio(int tesIdServicioBi, String tesTipoMovVc, String tesCodigoViaVc, String tesDetalleVc, String tesCuentaVc, String tesCuentaContableVc, Integer tesCodigoSintesisBi, BigDecimal tesComisionDc, Boolean tesEstadoBt, String tesUsuarioCreacionVc, Date tesFechaCreacionDt, String tesUsuarioModificacionVc, Date tesFechaModificacionDt, BigDecimal qrX, BigDecimal qrY, BigDecimal qrScale, BigDecimal marginLeft, BigDecimal marginRight, BigDecimal marginTop, BigDecimal marginBottom, String delimitador, Integer fontSize) {
        this.tesIdServicioBi = tesIdServicioBi;
        this.tesTipoMovVc = tesTipoMovVc;
        this.tesCodigoViaVc = tesCodigoViaVc;
@@ -52,6 +67,12 @@ public class TblServicioServicio  implements java.io.Serializable {
        this.qrX = qrX;
        this.qrY = qrY;
        this.qrScale = qrScale;
+       this.marginLeft = marginLeft;
+       this.marginRight = marginRight;
+       this.marginTop = marginTop;
+       this.marginBottom = marginBottom;
+       this.delimitador = delimitador;
+       this.fontSize = fontSize;
     }
    
     public int getTesIdServicioBi() {
@@ -165,6 +186,48 @@ public class TblServicioServicio  implements java.io.Serializable {
     
     public void setQrScale(BigDecimal qrScale) {
         this.qrScale = qrScale;
+    }
+    public BigDecimal getMarginLeft() {
+        return this.marginLeft;
+    }
+    
+    public void setMarginLeft(BigDecimal marginLeft) {
+        this.marginLeft = marginLeft;
+    }
+    public BigDecimal getMarginRight() {
+        return this.marginRight;
+    }
+    
+    public void setMarginRight(BigDecimal marginRight) {
+        this.marginRight = marginRight;
+    }
+    public BigDecimal getMarginTop() {
+        return this.marginTop;
+    }
+    
+    public void setMarginTop(BigDecimal marginTop) {
+        this.marginTop = marginTop;
+    }
+    public BigDecimal getMarginBottom() {
+        return this.marginBottom;
+    }
+    
+    public void setMarginBottom(BigDecimal marginBottom) {
+        this.marginBottom = marginBottom;
+    }
+    public String getDelimitador() {
+        return this.delimitador;
+    }
+    
+    public void setDelimitador(String delimitador) {
+        this.delimitador = delimitador;
+    }
+    public Integer getFontSize() {
+        return this.fontSize;
+    }
+    
+    public void setFontSize(Integer fontSize) {
+        this.fontSize = fontSize;
     }
 
 

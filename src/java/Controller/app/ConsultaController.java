@@ -17,6 +17,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Desktop;
@@ -27,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -36,15 +38,11 @@ import java.util.logging.Logger;
 import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
-import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.SimpleDoc;
-import javax.print.attribute.DocAttributeSet;
-import javax.print.attribute.HashDocAttributeSet;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Sides;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -121,18 +119,24 @@ public class ConsultaController {
     }
 
     @RequestMapping(value = "/pdf", method = RequestMethod.GET)
-    public void SearchFactura(@RequestParam("id") String id) {
+    public String SearchFactura(@RequestParam("id") String id) {
         TblServicioFactura factura = facturas.Search(id);
         if (!"".equals(factura.getTesPagoResponse())) {
-            File file = createPDF(factura);
-            if (file != null) {
-                download(file);
+            try {
+                File file = createPDF(factura);
+                if (file != null) {
+                    download(file);
+                }
+            } catch (Exception e) {
+                Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, e);
+                return "ERROR: " + e.getMessage();
             }
         }
+        return "COMPLETADO";
     }
 
     @RequestMapping(value = "/print", method = RequestMethod.GET)
-    public void PrintFactura(@RequestParam("id") String id) {
+    public String PrintFactura(@RequestParam("id") String id) {
         TblServicioFactura factura = facturas.Search(id);
         if (!"".equals(factura.getTesPagoResponse())) {
             try {
@@ -147,8 +151,10 @@ public class ConsultaController {
                 fis.close();
             } catch (Exception ex) {
                 Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
-            } 
+                return "ERROR: " + ex.getMessage();
+            }
         }
+        return "COMPLETADO";
     }
 
     private File createPDF(TblServicioFactura factura) {
@@ -159,8 +165,10 @@ public class ConsultaController {
         try {
             _file = File.createTempFile("temp_file", ".pdf");
             OutputStream file = new FileOutputStream(_file);
+            Rectangle rec = new Rectangle(500, 900);
             Document doc = new Document();
             doc.setMargins(0f, 0f, 0f, 0f);
+            doc.setPageSize(rec);
             PdfWriter.getInstance(doc, file);
             doc.open();
             BaseFont base = BaseFont.createFont("c:/windows/fonts/Consola.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
@@ -172,7 +180,7 @@ public class ConsultaController {
                     Font bold = new Font(base, 7.0f, Font.BOLD, BaseColor.BLACK);
                     paragraph = new Paragraph(item.toString().replace("<b>", ""), bold);
                 }
-                if (item.toString().contains("<QR>")) {
+                if (item.toString().contains("<QR>") || item.toString().contains("<QR_ENT_G>")) {
                     TblServicioServicio servicio = servicios.search(factura.getTesCodigoSintesisBi().toString());
                     qr = item.toString().substring(4);
                     Image image = QR.create(qr);
@@ -181,7 +189,15 @@ public class ConsultaController {
                     doc.add(image);
                     paragraph = new Paragraph("", f);
                 }
-                doc.add(paragraph);
+                if ("@PB".equals(item.toString())) {
+                    doc.newPage();
+                } else {
+                    doc.add(paragraph);
+                }
+            }
+            String temp;
+            if ("".equals(qr)) {
+                temp = content.toString().replace("},{", " ,");
             }
             doc.close();
             file.close();
@@ -200,6 +216,7 @@ public class ConsultaController {
             Desktop.getDesktop().open(downloadFile);
         } catch (IOException ex) {
             Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }
 }

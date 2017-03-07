@@ -22,6 +22,15 @@ public class ParametroController {
         return "index";
     }
 
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search(@RequestParam("id") String id, Model m) {
+        TblServicioServicio servicio = servicios.searchId(id);
+        m.addAttribute("servicio", servicio);
+        m.addAttribute("lstServicios", servicios.getAll());
+        m.addAttribute("parametro", true);
+        return "Parametro";
+    }
+
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(@RequestParam("id") String id,
             @RequestParam("nombre") String nombre,
@@ -45,6 +54,7 @@ public class ParametroController {
         servicios.Edit(servicio);
         m.addAttribute("lstServicios", servicios.getAll());
         m.addAttribute("parametro", true);
-        return "Parametro";
+//        return "Parametro";
+        return "redirect:/Parametro.html";
     }
 }

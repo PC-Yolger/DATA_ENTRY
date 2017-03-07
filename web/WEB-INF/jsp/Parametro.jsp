@@ -8,30 +8,21 @@
             <tr>
                 <th>ID</th>
                 <th>DETALLE</th>
-                <th>CUENTA</th>
-                <th>CUENTA CONTABLE</th>
-                <th>COMISION</th>
+                <th>CODIGO SINTESIS</th>
                 <th>ESTADO</th>
-                <th>TAMAÑO QR</th>
-                <th>QR X</th>
-                <th>QR Y</th>
             </tr>
             <c:forEach items="${lstServicios}" var="item">
                 <tr>
                     <td>${item.tesIdServicioBi}</td>
-                    <td><a href="javascript:void(0)" onclick="update(this)" data-toggle="modal" data-target="#myModal" style="color: #113F7C">${item.tesDetalleVc}</a></td>
-                    <td>${item.tesCuentaVc}</td>
-                    <td>${item.tesCuentaContableVc}</td>
-                    <td>${item.tesComisionDc}</td>
-                    <td>${item.tesEstadoBt}</td>
-                    <td>${item.qrScale}</td>
-                    <td>${item.qrX}</td>
-                    <td>${item.qrY}</td>
+                    <td><a href="javascript:void(0)" onclick="update(this)" style="color: #113F7C">${item.tesDetalleVc}</a></td>
+                    <td>${item.tesCodigoSintesisBi}</td>
+                    <td><span class="glyphicon ${item.tesEstadoBt? 'glyphicon-ok':'glyphicon-remove'}"></span> </td>
                 </tr>
             </c:forEach>
         </table>
     </div>
 </div>
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -41,29 +32,29 @@
             </div>
             <div class="modal-body">
                 <div class="form-horizontal">
-                    <input type="hidden" id="Id"/>
+                    <input type="hidden" id="Id" value="${servicio.tesIdServicioBi}"/>
                     <div class="form-group">
                         <label for="Nombre" class="col-sm-3 control-label">Detalle</label>
                         <div class="col-sm-9">
-                            <p class="form-control-static" id="Nombre"/>
+                            <p class="form-control-static" id="Nombre">${servicio.tesDetalleVc}</p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Cuenta" class="col-sm-3 control-label">Cuenta</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Cuenta">
+                            <input type="text" class="form-control" id="Cuenta" value="${servicio.tesCuentaVc}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="CuentaContable" class="col-sm-3 control-label">Cuenta Contable</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="CuentaContable">
+                            <input type="text" class="form-control" id="CuentaContable" value="${servicio.tesCuentaContableVc}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Comision" class="col-sm-3 control-label">Comision</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Comision">
+                            <input type="text" class="form-control" id="Comision" value="${servicio.tesComisionDc}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -73,21 +64,27 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="Margen" class="col-sm-3 control-label">Margen</label>
+                        <div class="col-sm-9">
+                            <input type="number" id="Margen">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="TamanoQR" class="col-sm-3 control-label">Tamaño QR</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="TamanoQR">
+                            <input type="number" class="form-control" id="TamanoQR" value="${servicio.qrScale}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="QRX" class="col-sm-3 control-label">QR X</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="QRX">
+                            <input type="number" class="form-control" id="QRX" value="${servicio.qrX}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="QRY" class="col-sm-3 control-label">QR Y</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="QRY">
+                            <input type="number" class="form-control" id="QRY" value="${servicio.qrY}">
                         </div>
                     </div>
                 </div>
@@ -114,7 +111,8 @@
             var qry = $('#QRY').val();
             $.ajax({
                 type: "POST",
-                url: "/Parametro/update",
+                cache: false,
+                url: "/Web/Parametro/update",
                 data: {"id": id, "nombre": nombre, "cuenta": cuenta, "cuentaContable": cuentaContable, "comision": comision, "estado": estado, "tamanoQR": tamanoQR, "qrx": qrx, "qry": qry},
                 success: function(json_data) {
                     $("#content").html(json_data);
@@ -126,14 +124,16 @@
         var data = $(element).get(0);
         var _parent = data.parentNode.parentNode;
         var tds = _parent.getElementsByTagName("td");
-        $('#Id').val(tds[0].innerHTML);
-        $('#Nombre').text(data.textContent);
-        $('#Cuenta').val(tds[2].innerHTML);
-        $('#CuentaContable').val(tds[3].innerHTML);
-        $('#Comision').val(tds[4].innerHTML);
-        $('#Estado').val(tds[5].innerHTML);
-        $('#TamanoQR').val(tds[6].innerHTML);
-        $('#QRX').val(tds[7].innerHTML);
-        $('#QRY').val(tds[8].innerHTML);
+        var id = tds[0].innerHTML;
+        $.ajax({
+            type: "GET",
+            cache: false,
+            url: "/Web/Parametro/search",
+            data: {"id": id},
+            success: function(json_data) {
+                $("#content").html(json_data);
+                $("#myModal").modal('show');
+            }
+        });
     }
 </script>
