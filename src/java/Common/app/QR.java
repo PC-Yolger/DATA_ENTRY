@@ -49,13 +49,13 @@ public class QR {
                 hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
                 createQRCode(content, file.getAbsolutePath(), charset, hintMap, 200, 200);
             } catch (WriterException ex) {
-                Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ConsultaController.class.getName()).log(Level.INFO, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ConsultaController.class.getName()).log(Level.INFO, null, ex);
             }
             return Image.getInstance(file.getAbsolutePath());
         } catch (Exception ex) {
-            Logger.getLogger(QR.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QR.class.getName()).log(Level.INFO, null, ex);
         }
         return null;
     }

@@ -128,7 +128,7 @@ public class ConsultaController {
                     download(file);
                 }
             } catch (Exception e) {
-                Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(ConsultaController.class.getName()).log(Level.INFO, null, e);
                 return "ERROR: " + e.getMessage();
             }
         }
@@ -150,7 +150,7 @@ public class ConsultaController {
                 printJob.print(pdfDoc, attributeSet);
                 fis.close();
             } catch (Exception ex) {
-                Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ConsultaController.class.getName()).log(Level.INFO, null, ex);
                 return "ERROR: " + ex.getMessage();
             }
         }
@@ -164,15 +164,16 @@ public class ConsultaController {
         File _file = null;
         try {
             _file = File.createTempFile("temp_file", ".pdf");
+            TblServicioServicio servicio = servicios.search(factura.getTesCodigoSintesisBi().toString());
             OutputStream file = new FileOutputStream(_file);
             Rectangle rec = new Rectangle(500, 900);
             Document doc = new Document();
-            doc.setMargins(0f, 0f, 0f, 0f);
+            doc.setMargins(servicio.getMarginLeft().floatValue(), servicio.getMarginRight().floatValue(), servicio.getMarginTop().floatValue(), servicio.getMarginBottom().floatValue());
             doc.setPageSize(rec);
             PdfWriter.getInstance(doc, file);
             doc.open();
             BaseFont base = BaseFont.createFont("c:/windows/fonts/Consola.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-            Font f = new Font(base, 7.0f, Font.NORMAL, BaseColor.BLACK);
+            Font f = new Font(base, servicio.getFontSize(), Font.NORMAL, BaseColor.BLACK);
             String qr = "";
             for (Object item : content) {
                 Paragraph paragraph = new Paragraph(item.toString(), f);
@@ -181,7 +182,6 @@ public class ConsultaController {
                     paragraph = new Paragraph(item.toString().replace("<b>", ""), bold);
                 }
                 if (item.toString().contains("<QR>") || item.toString().contains("<QR_ENT_G>")) {
-                    TblServicioServicio servicio = servicios.search(factura.getTesCodigoSintesisBi().toString());
                     qr = item.toString().substring(4);
                     Image image = QR.create(qr);
                     image.setAbsolutePosition(servicio.getQrX().floatValue(), servicio.getQrY().floatValue());
@@ -189,7 +189,7 @@ public class ConsultaController {
                     doc.add(image);
                     paragraph = new Paragraph("", f);
                 }
-                if ("@PB".equals(item.toString())) {
+                if (servicio.getDelimitador().equals(item.toString().trim())) {
                     doc.newPage();
                 } else {
                     doc.add(paragraph);
@@ -202,20 +202,21 @@ public class ConsultaController {
             doc.close();
             file.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsultaController.class.getName()).log(Level.INFO, null, ex);
         } catch (DocumentException ex) {
-            Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsultaController.class.getName()).log(Level.INFO, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsultaController.class.getName()).log(Level.INFO, null, ex);
         }
         return _file;
     }
 
     private void download(File downloadFile) {
         try {
+            Logger.getLogger(ConsultaController.class.getName()).log(Level.INFO, downloadFile.getAbsolutePath(), downloadFile.getAbsolutePath() + "as");
             Desktop.getDesktop().open(downloadFile);
         } catch (IOException ex) {
-            Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsultaController.class.getName()).log(Level.INFO, "PRUEBAS", ex);
 
         }
     }
