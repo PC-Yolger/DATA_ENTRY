@@ -7,7 +7,7 @@
         <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="${contextRoot}/Web">LOGO</a>
+                    <a class="navbar-brand" href="${contextRoot}/Web">${nombre}</a>
                 </div>
             </div>
         </div>

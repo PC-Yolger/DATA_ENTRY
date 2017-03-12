@@ -62,7 +62,7 @@
                 <th>NOMBRE</th>
                 <th>CUENTA</th>
                 <th>FACTURA</th>
-                <th>DIRECCION</th>
+                <th>CIUDAD</th>
                 <th>PDF</th>
                 <th>IMPRIMIR</th>
             </tr>
