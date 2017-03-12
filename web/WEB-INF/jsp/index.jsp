@@ -1,23 +1,28 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <%@include file="Shared/header.jsp" %>
     <body>
-        <%@include file="Shared/navbar.jsp" %>
-        <div class="container-fluid">
-            <div class="row content">
-                <div class="col-sm-3 sidenav hidden-xs" style="padding-top: 10px; position: fixed;">
-                    <img src="${img}/logotipo.png" class="img-responsive"/>
-                    <ul class="nav nav-pills nav-stacked" style="margin-top: 20px;">
-                        <li><a href="${contextRoot}/Web/Consulta/">Consulta</a></li>
-                        <li><a href="#section3">Reporte</a></li>
-                        <li><a href="${contextRoot}/Web/Parametro/">Parametros</a></li>
-                    </ul><br>
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="${contextRoot}/Web">LOGO</a>
                 </div>
-                <br>
-                
-                <div id="content" class="col-sm-9" style="margin-left: 25%">
+            </div>
+        </div>
+        <div class="container" style="margin-left: 10px;">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="nav nav-stacked affix">
+                        <div class="list-group">
+                            <a class="list-group-item" href="${contextRoot}/Web/Consulta/">Consulta</a>
+                            <a class="list-group-item" href="#section3">Reporte</a>
+                            <a class="list-group-item" href="${contextRoot}/Web/Parametro/">Parametros</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-9" id="content">
                     <c:if test="${home == true}">
                         <%@include file="Home.jsp" %>
                     </c:if>

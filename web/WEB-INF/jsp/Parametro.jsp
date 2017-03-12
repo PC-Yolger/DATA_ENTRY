@@ -24,7 +24,7 @@
 </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -33,58 +33,135 @@
             <div class="modal-body">
                 <div class="form-horizontal">
                     <input type="hidden" id="Id" value="${servicio.tesIdServicioBi}"/>
-                    <div class="form-group">
-                        <label for="Nombre" class="col-sm-3 control-label">Detalle</label>
-                        <div class="col-sm-9">
-                            <p class="form-control-static" id="Nombre">${servicio.tesDetalleVc}</p>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Datos</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="Nombre" class="col-sm-3 control-label">Detalle</label>
+                                        <div class="col-sm-9">
+                                            <p class="form-control-static" id="Nombre">${servicio.tesDetalleVc}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="Cuenta" class="col-sm-3 control-label">Cuenta</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="Cuenta" value="${servicio.tesCuentaVc}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="CuentaContable" class="col-sm-3 control-label">Cuenta Contable</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="CuentaContable" value="${servicio.tesCuentaContableVc}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="Comision" class="col-sm-3 control-label">Comision</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="Comision" value="${servicio.tesComisionDc}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="Estado" class="col-sm-3 control-label">Estado</label>
+                                        <div class="col-sm-9">
+                                            <input type="checkbox" id="Estado">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="Cuenta" class="col-sm-3 control-label">Cuenta</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Cuenta" value="${servicio.tesCuentaVc}">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Márgenes</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="Margen" class="col-sm-3 control-label">Superior:</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" id="Margen">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="Margen" class="col-sm-3 control-label">Inferior:</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" id="Margen">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="Margen" class="col-sm-3 control-label">Izquierdo:</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" id="Margen">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="Margen" class="col-sm-3 control-label">Derecho:</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" id="Margen">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="CuentaContable" class="col-sm-3 control-label">Cuenta Contable</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="CuentaContable" value="${servicio.tesCuentaContableVc}">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">QR</h3>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Comision" class="col-sm-3 control-label">Comision</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Comision" value="${servicio.tesComisionDc}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Estado" class="col-sm-3 control-label">Estado</label>
-                        <div class="col-sm-9">
-                            <input type="checkbox" id="Estado">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Margen" class="col-sm-3 control-label">Margen</label>
-                        <div class="col-sm-9">
-                            <input type="number" id="Margen">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="TamanoQR" class="col-sm-3 control-label">Tamaño QR</label>
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control" id="TamanoQR" value="${servicio.qrScale}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="QRX" class="col-sm-3 control-label">QR X</label>
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control" id="QRX" value="${servicio.qrX}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="QRY" class="col-sm-3 control-label">QR Y</label>
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control" id="QRY" value="${servicio.qrY}">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="QRX" class="col-sm-3 control-label">QR X</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" id="QRX" value="${servicio.qrX}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="QRY" class="col-sm-3 control-label">QR Y</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" id="QRY" value="${servicio.qrY}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="TamanoQR" class="col-sm-3 control-label">Tamaño QR</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" id="TamanoQR" value="${servicio.qrScale}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

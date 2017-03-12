@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: Backoffice
+Implementation-Version: 0.0.1
+Built-By: HP
+Implementation-Vendor-Id: com.dev
+Build-Jdk: 1.8.0_112
+Implementation-URL: http://projects.spring.io/spring-boot/dev/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+Main-Class: com.dev.BackofficeApplication
+

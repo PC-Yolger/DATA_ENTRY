@@ -3,44 +3,57 @@
     <div class="page-header">
         <h1>Consulta</h1>
     </div>
-    <div class="row">
-        <div class="form-group">
-            <label for="TypeDate" class="col-sm-2 control-label">Fechas:</label>
-            <div class="input-daterange input-group col-sm-10" id="datepicker" style="padding-left: 15px">
-                <input type="text" class="input-sm form-control" name="start" style="width: 100px; text-align: center; float: left" value="${init}"/>
-                <span class="input-group-addon" style="float: left; width: 50px">de</span>
-                <input type="text" class="input-sm form-control" name="end" style="width: 100px; text-align: center; float: left" value="${end}"/>
-            </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Filtros</h3>
         </div>
-    </div>
-    <div class="row">
-        <div class="form-group">
-            <label for="TypeDate" class="col-sm-2 control-label">Ciudad</label>
-            <div class="col-sm-10" style="width: 300px">
-                <select id="sucursal" class="form-control" onchange="Search()">
-                    <option value="">TODAS</option>
-                    <c:forEach items="${lstDirecciones}" var="item">
-                        <option value="${item.tesIdDireccionBi}" ${item.tesIdDireccionBi == sucursal ? "selected" : ""}>${item.tesCiudadVc}</option>
-                    </c:forEach>
-                </select>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group hidden">
+                        <label for="TypeDate" class="col-sm-3 control-label">Fechas:</label>
+                        <div class="col-sm-9">
+                            <div class="input-daterange input-group" id="datepicker">
+                                <input type="text" class="input-sm form-control" name="start" style="width: 100px; text-align: center; float: left" value="${init}"/>
+                                <span class="input-group-addon" style="float: left; width: 50px">de</span>
+                                <input type="text" class="input-sm form-control" name="end" style="width: 100px; text-align: center; float: left" value="${end}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group">
-            <label for="TypeDate" class="col-sm-2 control-label">Servicio</label>
-            <div class="col-sm-10" style="width: 300px">
-                <select id="servicio" class="form-control" onchange="Search()">
-                    <option value="">TODAS</option>
-                    <c:forEach items="${lstServicios}" var="item">
-                        <option value="${item.tesCodigoSintesisBi}" ${item.tesCodigoSintesisBi == servicio ? "selected" : ""}>${item.tesDetalleVc}</option>
-                    </c:forEach>
-                </select>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="TypeDate" class="col-sm-3 control-label">Ciudad:</label>
+                        <div class="col-sm-9">
+                            <select id="sucursal" class="form-control" onchange="Search()">
+                                <option value="">TODAS</option>
+                                <c:forEach items="${lstDirecciones}" var="item">
+                                    <option value="${item.tesIdDireccionBi}" ${item.tesIdDireccionBi == sucursal ? "selected" : ""}>${item.tesCiudadVc}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="TypeDate" class="col-sm-3 control-label">Servicio:</label>
+                        <div class="col-sm-9">
+                            <select id="servicio" class="form-control" onchange="Search()">
+                                <option value="">TODAS</option>
+                                <c:forEach items="${lstServicios}" var="item">
+                                    <option value="${item.tesCodigoSintesisBi}" ${item.tesCodigoSintesisBi == servicio ? "selected" : ""}>${item.tesDetalleVc}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="row" style="margin-top: 20px">
-        <table class="table table-striped table-bordered table-hover table-condensed" style="border-collapse: collapse" cellpanding="7px" border="1">
+        <table class="table table-striped table-hover ">
             <tr>
                 <th>ID</th>
                 <th>CODIGO SINTESIS</th>

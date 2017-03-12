@@ -1,15 +1,37 @@
-html, body, .container-fluid, .container-fluid > div{
+body {
+    padding-top:65px;
+}
+
+label{
+    max-width: 100px;
+}
+
+legend{
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #95A5A6;
+}
+
+.form-control{
+    height: 34px !important;
+    padding: 6px 12px;
+}
+
+label{
+    padding-top: 7px !important;
+}
+
+/*html, body, .container-fluid, .container-fluid > div{
     height: 100% !important;
     
 }
-/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+ Set height of the grid so .sidenav can be 100% (adjust as needed) 
 .row.content {height: 550px}
-/* Set gray background color and 100% height */
+ Set gray background color and 100% height 
 .sidenav {
     background-color: #7DB51E;
     height: 100%;
 }
-/* On small screens, set height to 'auto' for the grid */
+ On small screens, set height to 'auto' for the grid 
 @media screen and (max-width: 767px) {
     .row.content {height: auto;} 
 }
@@ -42,3 +64,61 @@ h4{
     padding: 0px 50px 30px 50px;
     margin: 10px;
 }
+
+ Custom Stylesheet 
+*
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ 
+
+nav ul a,
+nav .brand-logo {
+  color: #444;
+}
+
+p {
+  line-height: 2rem;
+}
+
+.button-collapse {
+  color: #26a69a;
+}
+
+.parallax-container {
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+  .parallax-container .section {
+    width: 100%;
+  }
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+footer.page-footer {
+  margin: 0;
+}*/
