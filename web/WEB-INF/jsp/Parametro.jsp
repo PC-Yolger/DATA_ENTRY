@@ -96,7 +96,7 @@
                                     <div class="form-group">
                                         <label for="Margen" class="col-sm-3 control-label">Superior:</label>
                                         <div class="col-sm-9">
-                                            <input type="number" class="form-control" id="Margen">
+                                            <input type="number" class="form-control" id="Margen" value="${servicio.marginTop}">
                                         </div>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                                     <div class="form-group">
                                         <label for="Margen" class="col-sm-3 control-label">Inferior:</label>
                                         <div class="col-sm-9">
-                                            <input type="number" class="form-control" id="Margen">
+                                            <input type="number" class="form-control" id="Margen" value="${servicio.marginBottom}">
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +114,7 @@
                                     <div class="form-group">
                                         <label for="Margen" class="col-sm-3 control-label">Izquierdo:</label>
                                         <div class="col-sm-9">
-                                            <input type="number" class="form-control" id="Margen">
+                                            <input type="number" class="form-control" id="Margen" value="${servicio.marginLeft}">
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                                     <div class="form-group">
                                         <label for="Margen" class="col-sm-3 control-label">Derecho:</label>
                                         <div class="col-sm-9">
-                                            <input type="number" class="form-control" id="Margen">
+                                            <input type="number" class="form-control" id="Margen" value="${servicio.marginRight}">
                                         </div>
                                     </div>
                                 </div>

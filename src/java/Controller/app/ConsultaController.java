@@ -5,6 +5,7 @@
  */
 package Controller.app;
 
+import Common.app.Print;
 import Common.app.QR;
 import Entity.app.TblServicioFactura;
 import Entity.app.TblServicioServicio;
@@ -22,7 +23,6 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,14 +34,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.SimpleDoc;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -49,6 +41,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/Consulta")
@@ -118,20 +111,21 @@ public class ConsultaController {
     }
 
     @RequestMapping(value = "/pdf", method = RequestMethod.GET)
+    @ResponseBody
     public String SearchFactura(@RequestParam("id") String id) {
         TblServicioFactura factura = facturas.Search(id);
+        File file = null;
         if (!"".equals(factura.getTesPagoResponse())) {
             try {
-                File file = createPDF(factura);
-                if (file != null) {
-                    download(file);
-                }
+                file = createPDF(factura);
+                download(file);
             } catch (Exception e) {
                 Logger.getLogger(ConsultaController.class.getName()).log(Level.INFO, null, e);
-                return "ERROR: " + e.getMessage();
+                return null;
             }
         }
-        return "COMPLETADO";
+//        return new FileSystemResource(file);
+        return file.getAbsolutePath();
     }
 
     @RequestMapping(value = "/print", method = RequestMethod.GET)
@@ -139,15 +133,21 @@ public class ConsultaController {
         TblServicioFactura factura = facturas.Search(id);
         if (!"".equals(factura.getTesPagoResponse())) {
             try {
-                File file = createPDF(factura);
-                FileInputStream fis = new FileInputStream(file);
-                DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
-                Doc pdfDoc = new SimpleDoc(fis, flavor, null);
-                PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-                DocPrintJob printJob = service.createPrintJob();
-                PrintRequestAttributeSet attributeSet = new HashPrintRequestAttributeSet();
-                printJob.print(pdfDoc, attributeSet);
-                fis.close();
+
+                String data = factura.getTesPagoResponse();
+                JSONObject obj = new JSONObject(data);
+                JSONArray content = obj.getJSONArray("lineaFactura");
+                Print print = new Print(content);
+                print.printFile();
+//                File file = createPDF(factura);
+//                FileInputStream fis = new FileInputStream(file);
+//                DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
+//                Doc pdfDoc = new SimpleDoc(fis, flavor, null);
+//                PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+//                DocPrintJob printJob = service.createPrintJob();
+//                PrintRequestAttributeSet attributeSet = new HashPrintRequestAttributeSet();
+//                printJob.print(pdfDoc, attributeSet);
+//                fis.close();
             } catch (Exception ex) {
                 Logger.getLogger(ConsultaController.class.getName()).log(Level.INFO, null, ex);
                 return "ERROR: " + ex.getMessage();
@@ -160,15 +160,15 @@ public class ConsultaController {
         String data = factura.getTesPagoResponse();
         JSONObject obj = new JSONObject(data);
         JSONArray content = obj.getJSONArray("lineaFactura");
+        String temp = "";
         File _file = null;
         try {
             _file = File.createTempFile("temp_file", ".pdf");
+//            _file = new File("/ecofuturo/temp_" + factura.getTesCuentaVc() + ".pdf");
             TblServicioServicio servicio = servicios.search(factura.getTesCodigoSintesisBi().toString());
             OutputStream file = new FileOutputStream(_file);
-            Rectangle rec = new Rectangle(500, 900);
             Document doc = new Document();
             doc.setMargins(servicio.getMarginLeft().floatValue(), servicio.getMarginRight().floatValue(), servicio.getMarginTop().floatValue(), servicio.getMarginBottom().floatValue());
-            doc.setPageSize(rec);
             PdfWriter.getInstance(doc, file);
             doc.open();
             BaseFont base = BaseFont.createFont("c:/windows/fonts/Consola.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
@@ -193,10 +193,10 @@ public class ConsultaController {
                 } else {
                     doc.add(paragraph);
                 }
+                temp += item.toString();
             }
-            String temp;
             if ("".equals(qr)) {
-                temp = content.toString().replace("},{", " ,");
+                
             }
             doc.close();
             file.close();

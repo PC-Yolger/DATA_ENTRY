@@ -4,6 +4,16 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
+    <filter>
+        <filter-name>Authentification</filter-name>
+        <filter-class>Common.app.Authentification</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Authentification</filter-name>
+        <url-pattern>/Home/*</url-pattern>
+        <url-pattern>/Consulta/*</url-pattern>
+        <url-pattern>/Parametro/*</url-pattern>
+    </filter-mapping>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

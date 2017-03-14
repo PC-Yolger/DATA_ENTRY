@@ -6,6 +6,7 @@
 package Controller.app;
 
 import Model.app.UsuarioRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,11 +32,10 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute("user") UsuarioRequest request, ModelMap m) {
+    public String login(@ModelAttribute("user") UsuarioRequest request, ModelMap m, HttpSession session) {
         if (request.getUsuario().equals("admin") && request.getPassword().equals("admin")) {
-            m.put("nombre", request.getUsuario());
-            m.put("home", true);
-            return "index";
+            session.setAttribute("user", request.getUsuario());
+            return "redirect:/Home/";
         } else {
             String msg = "El usuario o contraseña es incorrecto.";
             if (request.getUsuario().equals("")) {

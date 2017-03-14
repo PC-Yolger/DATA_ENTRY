@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="37803389-1f63-4787-8beb-0b82713bc1a6">
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     tbl_servicio_factura."tes_id_factura_bi" AS tbl_servicio_factura_tes_id_factura_bi,
+     tbl_servicio_factura."tes_operacion_vc" AS tbl_servicio_factura_tes_operacion_vc,
+     tbl_servicio_factura."tes_nit_vc" AS tbl_servicio_factura_tes_nit_vc,
+     tbl_servicio_factura."tes_nombre_vc" AS tbl_servicio_factura_tes_nombre_vc,
+     tbl_servicio_factura."tes_cuenta_vc" AS tbl_servicio_factura_tes_cuenta_vc,
+     tbl_servicio_factura."tes_factura_texto" AS tbl_servicio_factura_tes_factura_texto,
+     tbl_servicio_factura."tes_estado_bt" AS tbl_servicio_factura_tes_estado_bt,
+     tbl_servicio_factura."tes_usuario_creacion_vc" AS tbl_servicio_factura_tes_usuario_creacion_vc,
+     tbl_servicio_factura."tes_fecha_creacion_dt" AS tbl_servicio_factura_tes_fecha_creacion_dt,
+     tbl_servicio_factura."tes_usuario_modificacion_vc" AS tbl_servicio_factura_tes_usuario_modificacion_vc,
+     tbl_servicio_factura."tes_fecha_modificacion_dt" AS tbl_servicio_factura_tes_fecha_modificacion_dt,
+     tbl_servicio_factura."print" AS tbl_servicio_factura_print,
+     tbl_servicio_factura."user_print" AS tbl_servicio_factura_user_print,
+     tbl_servicio_factura."date_print" AS tbl_servicio_factura_date_print,
+     tbl_servicio_direccion."tes_tipo_vc" AS tbl_servicio_direccion_tes_tipo_vc,
+     tbl_servicio_direccion."tes_ciudad_vc" AS tbl_servicio_direccion_tes_ciudad_vc,
+     tbl_servicio_direccion."tes_direccion_vc" AS tbl_servicio_direccion_tes_direccion_vc,
+     tbl_servicio_direccion."tes_detalle_vc" AS tbl_servicio_direccion_tes_detalle_vc,
+     tbl_servicio_servicio."tes_tipo_mov_vc" AS tbl_servicio_servicio_tes_tipo_mov_vc,
+     tbl_servicio_servicio."tes_detalle_vc" AS tbl_servicio_servicio_tes_detalle_vc,
+     tbl_servicio_servicio."tes_cuenta_vc" AS tbl_servicio_servicio_tes_cuenta_vc,
+     tbl_servicio_servicio."tes_cuenta_contable_vc" AS tbl_servicio_servicio_tes_cuenta_contable_vc,
+     tbl_servicio_servicio."tes_comision_dc" AS tbl_servicio_servicio_tes_comision_dc
+FROM
+     "servicio"."tbl_servicio_factura" tbl_servicio_factura INNER JOIN "servicio"."tbl_servicio_direccion" tbl_servicio_direccion ON tbl_servicio_factura."test_id_direccion_bi" = tbl_servicio_direccion."tes_id_direccion_bi"
+     INNER JOIN "servicio"."tbl_servicio_servicio" tbl_servicio_servicio ON tbl_servicio_factura."tes_codigo_sintesis_bi" = tbl_servicio_servicio."tes_codigo_sintesis_bi"]]>
+	</queryString>
+	<field name="tbl_servicio_factura_tes_id_factura_bi" class="java.lang.Integer"/>
+	<field name="tbl_servicio_factura_tes_operacion_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_factura_tes_nit_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_factura_tes_nombre_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_factura_tes_cuenta_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_factura_tes_factura_texto" class="java.lang.String"/>
+	<field name="tbl_servicio_factura_tes_estado_bt" class="java.lang.Boolean"/>
+	<field name="tbl_servicio_factura_tes_usuario_creacion_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_factura_tes_fecha_creacion_dt" class="java.sql.Timestamp"/>
+	<field name="tbl_servicio_factura_tes_usuario_modificacion_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_factura_tes_fecha_modificacion_dt" class="java.sql.Timestamp"/>
+	<field name="tbl_servicio_factura_print" class="java.lang.Boolean"/>
+	<field name="tbl_servicio_factura_user_print" class="java.lang.String"/>
+	<field name="tbl_servicio_factura_date_print" class="java.sql.Timestamp"/>
+	<field name="tbl_servicio_direccion_tes_tipo_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_direccion_tes_ciudad_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_direccion_tes_direccion_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_direccion_tes_detalle_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_servicio_tes_tipo_mov_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_servicio_tes_detalle_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_servicio_tes_cuenta_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_servicio_tes_cuenta_contable_vc" class="java.lang.String"/>
+	<field name="tbl_servicio_servicio_tes_comision_dc" class="java.math.BigDecimal"/>
+	<group name="tbl_servicio_servicio_tes_detalle_vc">
+		<groupExpression><![CDATA[$F{tbl_servicio_servicio_tes_detalle_vc}]]></groupExpression>
+		<groupHeader>
+			<band height="27">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="3" width="721" height="24" forecolor="#B89F7D" backcolor="#000000" uuid="7669f791-45ed-4563-b1fe-632a3dd4e139"/>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="SubTitle" x="2" y="0" width="695" height="24" forecolor="#FFFFFF" uuid="8a3b1f30-313a-497f-8855-4c91b5ed33a9"/>
+						<textElement>
+							<font isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{tbl_servicio_servicio_tes_detalle_vc}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<rectangle>
+					<reportElement x="725" y="3" width="77" height="24" backcolor="#666666" uuid="bd1402a3-f324-496e-8a2a-b54253a7ef83"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<group name="tbl_servicio_direccion_tes_ciudad_vc">
+		<groupExpression><![CDATA[$F{tbl_servicio_direccion_tes_ciudad_vc}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<textField>
+					<reportElement positionType="Float" x="0" y="4" width="802" height="26" forecolor="#000000" uuid="61b490c2-7c52-43ed-9c7f-fda130c0eec7"/>
+					<textElement>
+						<font fontName="Times New Roman" size="16" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_direccion_tes_ciudad_vc}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<image>
+				<reportElement x="725" y="0" width="77" height="102" uuid="081e09e3-f47e-4863-bcf4-49fa22fd08f1"/>
+				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
+			</image>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="721" height="66" backcolor="#000000" uuid="e746ad03-11a6-4322-bd99-3a8c84bade10"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="370" height="66" uuid="660bca76-5121-423e-bbd0-10c8c12d6426"/>
+					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
+					<textElement verticalAlignment="Bottom">
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Cherry Title]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="SubTitle" x="370" y="37" width="316" height="29" uuid="bc44c11a-a86d-4c01-b926-fac6862b8443"/>
+					<textElement textAlignment="Right">
+						<font size="22" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Cherry SubTitle]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="70" width="721" height="32" forecolor="#000000" backcolor="#CC0000" uuid="eade4569-8ed5-47c9-8459-4c165b68ed61"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="553" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="bbd5e234-6c59-4940-ae71-59fa0547b899"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="37" height="18" forecolor="#000000" uuid="d1ba7ecf-58df-4c4a-8034-e86cd02824a0"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_tes_id_factura_bi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="37" y="0" width="37" height="18" forecolor="#000000" uuid="039f15cb-6898-4f6c-98f5-f8129d62728e"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_tes_operacion_vc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="74" y="0" width="37" height="18" forecolor="#000000" uuid="57db2ba2-6a74-477d-b0bf-1f99e07392bc"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_tes_nit_vc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="111" y="0" width="37" height="18" forecolor="#000000" uuid="610688ef-b933-4875-b815-94db0948460a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_tes_nombre_vc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="148" y="0" width="37" height="18" forecolor="#000000" uuid="c4ae118f-3309-49df-9ae3-18e7d4a5cb21"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_tes_cuenta_vc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="185" y="0" width="37" height="18" forecolor="#000000" uuid="24adfa31-4eed-4e75-aa1c-35ee87f439a8"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_tes_factura_texto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="222" y="0" width="37" height="18" forecolor="#000000" uuid="e488d196-b104-4479-9d30-077e02a5f1c3"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_tes_estado_bt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="259" y="0" width="37" height="18" forecolor="#000000" uuid="8ca5143d-f265-491c-9cba-895b6eb41b17"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_tes_usuario_creacion_vc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="296" y="0" width="37" height="18" forecolor="#000000" uuid="64df33b5-00ce-48ee-bc28-7068342dea41"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_tes_fecha_creacion_dt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="333" y="0" width="37" height="18" forecolor="#000000" uuid="79e3814f-88de-46ac-b29f-502f85a86934"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_tes_usuario_modificacion_vc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="370" y="0" width="37" height="18" forecolor="#000000" uuid="3915dee9-a00a-4710-8989-1dcf212de420"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_tes_fecha_modificacion_dt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="407" y="0" width="37" height="18" forecolor="#000000" uuid="2f2f8379-f55d-45b4-8485-0570a323e159"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_print]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="444" y="0" width="37" height="18" forecolor="#000000" uuid="40295ec4-979b-4e50-9e9e-e032b6cb4833"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_user_print]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="481" y="0" width="37" height="18" forecolor="#000000" uuid="d7523498-d0eb-4026-ad47-e29b70447477"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_factura_date_print]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="518" y="0" width="37" height="18" forecolor="#000000" uuid="9512e301-78af-4d2a-8243-20292e4b7473"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_direccion_tes_tipo_vc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="555" y="0" width="37" height="18" forecolor="#000000" uuid="7cd5ed9e-595e-4fa1-ac15-cd714a678d9c"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_direccion_tes_direccion_vc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="592" y="0" width="37" height="18" forecolor="#000000" uuid="1542d106-ce67-4b93-ae42-5c287b2c0ecd"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_direccion_tes_detalle_vc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="629" y="0" width="37" height="18" forecolor="#000000" uuid="4f32f6f9-f10c-4489-a4ec-f8136b971b72"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_servicio_tes_tipo_mov_vc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="666" y="0" width="37" height="18" forecolor="#000000" uuid="b4c8b0ea-86fb-4d86-b693-9e20f227dc88"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_servicio_tes_cuenta_vc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="703" y="0" width="37" height="18" forecolor="#000000" uuid="51f276d0-0183-4ac4-839f-c25bf95cef36"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_servicio_tes_cuenta_contable_vc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="740" y="0" width="37" height="18" forecolor="#000000" uuid="ce7bba84-9d70-4a36-822f-02dff5801b36"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[tbl_servicio_servicio_tes_comision_dc]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="797" height="18" uuid="1272f1ad-9d66-4e4a-81d9-199144404c67"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="37" height="18" uuid="62208717-0ea8-4771-be3f-4a14e7b59d22"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_tes_id_factura_bi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="37" y="0" width="37" height="18" uuid="a4914b07-a7e4-4f43-821b-b4641e6595b4"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_tes_operacion_vc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="74" y="0" width="37" height="18" uuid="1e22ba8e-3568-4d3a-bcdf-21cb661170ec"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_tes_nit_vc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="111" y="0" width="37" height="18" uuid="95175f15-3a98-4794-8c93-27c21159bb81"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_tes_nombre_vc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="148" y="0" width="37" height="18" uuid="f1bfbf85-1c58-4d94-b6da-18c96b1fab22"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_tes_cuenta_vc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="185" y="0" width="37" height="18" uuid="c6e0aeef-8fcc-4b72-b5be-27d6e8ba8aa7"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_tes_factura_texto}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="222" y="0" width="37" height="18" uuid="870e787a-f852-48b8-a364-fd7a29b0e28d"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_tes_estado_bt}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="259" y="0" width="37" height="18" uuid="9d716de9-ab59-48a3-9b56-3fe2305aaa7d"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_tes_usuario_creacion_vc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="296" y="0" width="37" height="18" uuid="791534d1-149d-48e3-b3c0-a30213f42f4e"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_tes_fecha_creacion_dt}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="333" y="0" width="37" height="18" uuid="ac17dd3e-5a6e-4ee3-b9bb-5ceb6546a0d7"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_tes_usuario_modificacion_vc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="370" y="0" width="37" height="18" uuid="f0f219e6-b61a-4f08-9364-262e0222e1c3"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_tes_fecha_modificacion_dt}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="407" y="0" width="37" height="18" uuid="4113236a-a13a-46a2-af70-e374be190c6b"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_print}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="444" y="0" width="37" height="18" uuid="70c2ec9b-7b5e-42f0-bdeb-d957bbbacecd"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_user_print}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="481" y="0" width="37" height="18" uuid="8e61a8c9-c4f9-463c-8f0c-37c49798421b"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_factura_date_print}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="518" y="0" width="37" height="18" uuid="3c411426-8dd4-41b8-bd50-62b085254f1b"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_direccion_tes_tipo_vc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="555" y="0" width="37" height="18" uuid="24d79154-f8d6-4187-b04c-dd4d2595b132"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_direccion_tes_direccion_vc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="592" y="0" width="37" height="18" uuid="87d72a5b-09b6-4e0c-8422-a6d18e67bc76"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_direccion_tes_detalle_vc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="629" y="0" width="37" height="18" uuid="2e7402bb-a4e2-448a-ad63-a69a796ff5b8"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_servicio_tes_tipo_mov_vc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="666" y="0" width="37" height="18" uuid="02555c51-586e-48c2-9e82-265b0a39e5eb"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_servicio_tes_cuenta_vc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="703" y="0" width="37" height="18" uuid="7ae5eb7c-378d-4855-9a18-a44ac9da1dcf"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_servicio_tes_cuenta_contable_vc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="740" y="0" width="37" height="18" uuid="d86a9454-fdd2-4ef5-b727-eb11eb058ad8"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tbl_servicio_servicio_tes_comision_dc}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="5b67f76e-4e5b-4ccf-8406-e2762eb2ac35"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="25" forecolor="#D0B48E" backcolor="#000000" uuid="9a223651-9e5c-40f6-979a-ab45d68cda31"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="757" y="3" width="40" height="20" forecolor="#FFFFFF" uuid="661dda4b-dc36-4df7-bc48-7c8502a5ade4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="677" y="3" width="80" height="20" forecolor="#FFFFFF" uuid="47a1235f-b03a-439b-a10b-f2a8e57ad070"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="3" width="197" height="20" forecolor="#FFFFFF" uuid="91e69fe2-8717-4fba-b39b-d005df7a358e"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

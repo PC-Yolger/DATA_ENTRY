@@ -1,5 +1,5 @@
 package Entity.app;
-// Generated 07-03-2017 08:10:25 AM by Hibernate Tools 3.6.0
+// Generated 12-03-2017 07:10:22 PM by Hibernate Tools 3.6.0
 
 
 import java.math.BigDecimal;
@@ -33,15 +33,6 @@ public class TblServicioServicio  implements java.io.Serializable {
      private BigDecimal marginBottom;
      private String delimitador;
      private Integer fontSize;
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-     private String direccion;
 
     public TblServicioServicio() {
     }

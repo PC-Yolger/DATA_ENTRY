@@ -111,7 +111,7 @@
             url: "/Web/Consulta/pdf",
             data: {"id": id},
             success: function(json_data) {
-                alert("COMPLETADo");
+                window.open(json_data);
             }
         });
     }

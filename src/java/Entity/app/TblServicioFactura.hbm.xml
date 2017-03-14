@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 07-03-2017 08:10:26 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 12-03-2017 07:10:23 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="Entity.app.TblServicioFactura" table="tbl_servicio_factura" schema="servicio">
         <id name="tesIdFacturaBi" type="int">
@@ -49,6 +49,15 @@
         </property>
         <property name="testIdDireccionBi" type="java.lang.Integer">
             <column name="test_id_direccion_bi" />
+        </property>
+        <property name="print" type="java.lang.Boolean">
+            <column name="print" />
+        </property>
+        <property name="userPrint" type="string">
+            <column name="user_print" length="50" />
+        </property>
+        <property name="datePrint" type="timestamp">
+            <column name="date_print" length="29" />
         </property>
     </class>
 </hibernate-mapping>
