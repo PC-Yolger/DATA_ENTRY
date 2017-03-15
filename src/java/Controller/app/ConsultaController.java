@@ -17,6 +17,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseFont;
@@ -167,11 +168,13 @@ public class ConsultaController {
 //            _file = new File("/ecofuturo/temp_" + factura.getTesCuentaVc() + ".pdf");
             TblServicioServicio servicio = servicios.search(factura.getTesCodigoSintesisBi().toString());
             OutputStream file = new FileOutputStream(_file);
-            Document doc = new Document();
+            Document doc = new Document(PageSize.LETTER);
             doc.setMargins(servicio.getMarginLeft().floatValue(), servicio.getMarginRight().floatValue(), servicio.getMarginTop().floatValue(), servicio.getMarginBottom().floatValue());
             PdfWriter.getInstance(doc, file);
             doc.open();
+//            BaseFont base = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, false)false
             BaseFont base = BaseFont.createFont("c:/windows/fonts/Consola.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+//            BaseFont base = BaseFont.createFont("~/fonts/Consola.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
             Font f = new Font(base, servicio.getFontSize(), Font.NORMAL, BaseColor.BLACK);
             String qr = "";
             for (Object item : content) {
@@ -196,7 +199,7 @@ public class ConsultaController {
                 temp += item.toString();
             }
             if ("".equals(qr)) {
-                
+
             }
             doc.close();
             file.close();
