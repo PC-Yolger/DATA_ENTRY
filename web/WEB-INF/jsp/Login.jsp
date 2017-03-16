@@ -57,5 +57,20 @@
                 </div>
             </div>
         </div>
+    <%-- start web service invocation --%><hr/>
+    <%
+    try {
+	org.tempuri.ECOCobranza service = new org.tempuri.ECOCobranza();
+	org.tempuri.ECOCobranzaSoap port = service.getECOCobranzaSoap();
+	 // TODO initialize WS operation arguments here
+	org.tempuri.ValidaUserIn usuarioIn = null;
+	// TODO process result here
+	org.tempuri.ValidaUserOut result = port.getValida(usuarioIn);
+	out.println("Result = "+result);
+    } catch (Exception ex) {
+	// TODO handle custom exceptions here
+    }
+    %>
+    <%-- end web service invocation --%><hr/>
     </body>
 </html>

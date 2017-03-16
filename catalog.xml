@@ -3,4 +3,5 @@
     <nextCatalog catalog="nbproject/private/retriever/catalog.xml"/>
     <system systemId="https://171.3.0.12:40455/ECOServicesCobranza/ECOCobranza.asmx?op=getValida" uri="src/conf/xml-resources/web-service-references/ECOCobranza/wsdl/171.3.0.12_40455/ECOServicesCobranza/ECOCobranza.asmx.op_getvalida"/>
     <system systemId="https://171.3.0.12:40455/ECOServicesCobranza/ECOCobranza.asmx" uri="src/conf/xml-resources/web-service-references/ECOCobranza/wsdl/171.3.0.12_40455/ECOServicesCobranza/ECOCobranza.asmx"/>
+    <system systemId="https://171.3.0.12:40455/ECOServicesCobranza/ECOCobranza.asmx?WSDL" uri="src/conf/xml-resources/web-service-references/ECOCobranza/wsdl/171.3.0.12_40455/ECOServicesCobranza/ECOCobranza.asmx.wsdl"/>
 </catalog>
