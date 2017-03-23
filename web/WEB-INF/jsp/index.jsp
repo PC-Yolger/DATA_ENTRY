@@ -11,18 +11,18 @@
                 </div>
             </div>
         </div>
-        <div class="container" style="margin-left: 10px;">
+        <div class="container" style="width: 100%">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="nav nav-stacked affix">
                         <div class="list-group">
                             <a class="list-group-item" href="${contextRoot}/Web/Consulta/">Consulta</a>
-                            <a class="list-group-item" href="#section3">Reporte</a>
+                            <a class="list-group-item" href="Reporte.jsp">Reporte</a>
                             <a class="list-group-item" href="${contextRoot}/Web/Parametro/">Parametros</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-9" id="content">
+                <div class="col-sm-10" id="content">
                     <c:if test="${home == true}">
                         <%@include file="Home.jsp" %>
                     </c:if>

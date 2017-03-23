@@ -53,25 +53,21 @@
         </div>
     </div>
     <div class="row" style="margin-top: 20px">
-        <table class="table table-striped table-hover ">
+        <table class="table table-striped table-hover table-bordered" style="width:100%">
             <tr>
-                <th>ID</th>
-                <th>CODIGO SINTESIS</th>
-                <th>OPERACION</th>
-                <th>NIT</th>
-                <th>NOMBRE</th>
-                <th>CUENTA</th>
-                <th>FACTURA</th>
-                <th>CIUDAD</th>
-                <th>PDF</th>
-                <th>IMPRIMIR</th>
+                <th style="width:5%">ID</th>
+                <th style="width:20%">SERVICIO</th>
+                <th style="width:25%">NOMBRE</th>
+                <th style="width:10%">CUENTA</th>
+                <th style="width:10%">FACTURA</th>
+                <th style="width:10%">CIUDAD</th>
+                <th style="width:10%">PDF</th>
+                <th style="width:10%">IMPRIMIR</th>
             </tr>
             <c:forEach items="${lstFacturas}" var="item">
                 <tr>
                     <td>${item.tesIdFacturaBi}</td>
                     <td>${item.servicio}</td>
-                    <td>${item.tesOperacionVc}</td>
-                    <td>${item.tesNitVc}</td>
                     <td>${item.tesNombreVc}</td>
                     <td>${item.tesCuentaVc}</td>
                     <td>${item.tesFacturaTexto}</td>
@@ -109,9 +105,17 @@
             type: "GET",
             cache: false,
             url: "/Web/Consulta/pdf",
+            contentType: 'application/octet-stream',
             data: {"id": id},
             success: function(json_data) {
-                window.open(json_data);
+                var blob = new Blob([json_data], {type: 'application/pdf'});
+                var link = document.createElement('a');
+                link.tagName
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "SearchedResults.pdf";
+                link.target = '_blank';
+                link.click();
+//                window.open("data:application/pdf;base64, " + json_data);
             }
         });
     }
