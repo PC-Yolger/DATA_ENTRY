@@ -81,7 +81,7 @@ public class ConsultaControllerTest {
     public void testSearchFactura() {
         System.out.println("SearchFactura");
         HttpServletResponse response = null;
-        String id = "11";
+        String id = "20";
         ConsultaController instance = new ConsultaController();
         instance.SearchFactura(response, id);
         // TODO review the generated test code and remove the default call to fail.

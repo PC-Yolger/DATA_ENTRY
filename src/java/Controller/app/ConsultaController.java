@@ -21,7 +21,6 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.awt.Desktop;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -178,6 +177,7 @@ public class ConsultaController {
         File _file = null;
         Document doc = null;
         OutputStream file = null;
+        int page = 0;
         try {
             _file = File.createTempFile("temp_file", ".pdf");
             TblServicioServicio servicio = servicios.search(factura.getTesCodigoSintesisBi().toString());
@@ -224,16 +224,23 @@ public class ConsultaController {
                         Image image = QR.create(qr);
                         image.scaleAbsolute(75, 75);
                         image.setAlignment(Image.ALIGN_RIGHT);
-                        image.setAbsolutePosition(doc.getPageSize().getWidth() - (110 - servicio.getMarginLeft().floatValue()), doc.getPageSize().getHeight() - (line * 12.7f));
+                        float x = doc.getPageSize().getWidth() - (110 - servicio.getMarginLeft().floatValue());
+//                        float y = (doc.getPageSize().getHeight() * page) + (doc.getPageSize().getHeight() - (line * 12.7f));
+                        float sizefont = paragraph.getLeading();
+                        float y = (doc.getPageSize().getHeight() - (sizefont * (line + 1)));
+                        image.setAbsolutePosition(x, y);
                         doc.add(image);
-                        paragraph = new Paragraph(" ", f);
                     }
                 }
                 if (servicio.getDelimitador().equals(item.toString().trim())) {
+                    line = 0;
+                    page++;
                     doc.newPage();
                 } else {
                     line += 1f;
-                    doc.add(paragraph);
+                    if (!(item.toString().contains("<QR>") || item.toString().contains("<QR_ENT_G>"))) {
+                        doc.add(paragraph);
+                    }
                 }
                 temp += item.toString();
             }
