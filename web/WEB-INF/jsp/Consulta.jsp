@@ -10,7 +10,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="form-group hidden">
+                    <div class="form-group">
                         <label for="TypeDate" class="col-sm-3 control-label">Fechas:</label>
                         <div class="col-sm-9">
                             <div class="input-daterange input-group" id="datepicker">
@@ -90,11 +90,13 @@
     function Search() {
         var sucursal = $("#sucursal").val();
         var servicio = $("#servicio").val();
+        var init = $("input[name='start']").val();
+        var end = $("input[name='end']").val();
         $.ajax({
             type: "GET",
             cache: false,
             url: "/Web/Consulta/Search",
-            data: {"sucursal": sucursal, "init": "1", "end": "2", "servicio": servicio},
+            data: {"sucursal": sucursal, "init": init, "end": end, "servicio": servicio},
             success: function(json_data) {
                 $("#content").html(json_data);
             }

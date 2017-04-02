@@ -31,10 +31,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,30 +90,34 @@ public class ConsultaController {
             @RequestParam("end") String end,
             @RequestParam("servicio") String servicio,
             Model m) {
-        List<TblServicioFactura> _facturas = facturas.Search(sucursal, servicio);
-        for (TblServicioFactura item : _facturas) {
-            item.setServicio(servicios.search(item.getTesCodigoSintesisBi().toString()).getTesDetalleVc());
-            item.setDireccion(direcciones.search(item.getTestIdDireccionBi().toString()).getTesCiudadVc());
-        }
-        Collections.sort(_facturas, new Comparator<TblServicioFactura>() {
-            @Override
-            public int compare(TblServicioFactura o1, TblServicioFactura o2) {
-                return o1.getTesIdFacturaBi() - o2.getTesIdFacturaBi();
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date inicio = formatter.parse(init);
+            Date fin = formatter.parse(end);
+            List<TblServicioFactura> _facturas = facturas.Search(sucursal, servicio, inicio, fin);
+            for (TblServicioFactura item : _facturas) {
+                item.setServicio(servicios.search(item.getTesCodigoSintesisBi().toString()).getTesDetalleVc());
+                item.setDireccion(direcciones.search(item.getTestIdDireccionBi().toString()).getTesCiudadVc());
             }
-        });
-        m.addAttribute("lstFacturas", _facturas);
-        m.addAttribute("lstDirecciones", direcciones.getAll());
-        m.addAttribute("lstServicios", servicios.getAll());
-        m.addAttribute("consulta", true);
-        SimpleDateFormat formats = new SimpleDateFormat("dd/MM/yyyy");
-        Calendar now = Calendar.getInstance();
-        m.addAttribute("end", formats.format(now.getTime()));
-        now.add(Calendar.MONTH, -1);
-        m.addAttribute("init", formats.format(now.getTime()));
-
-        m.addAttribute("sucursal", sucursal);
-        m.addAttribute("servicio", servicio);
-
+            Collections.sort(_facturas, new Comparator<TblServicioFactura>() {
+                @Override
+                public int compare(TblServicioFactura o1, TblServicioFactura o2) {
+                    return o1.getTesIdFacturaBi() - o2.getTesIdFacturaBi();
+                }
+            });
+            m.addAttribute("lstFacturas", _facturas);
+            m.addAttribute("lstDirecciones", direcciones.getAll());
+            m.addAttribute("lstServicios", servicios.getAll());
+            m.addAttribute("consulta", true);
+            SimpleDateFormat formats = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar now = Calendar.getInstance();
+            m.addAttribute("end", formats.format(fin));
+            m.addAttribute("init", formats.format(inicio));
+            m.addAttribute("sucursal", sucursal);
+            m.addAttribute("servicio", servicio);
+        } catch (ParseException ex) {
+            Logger.getLogger(ConsultaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "Consulta";
     }
 
@@ -219,18 +225,37 @@ public class ConsultaController {
                 }
                 if (item.toString().contains("<QR>") || item.toString().contains("<QR_ENT_G>")) {
                     qr = item.toString().replaceAll("<QR>", "");
-                    if (servicio.getTesDetalleVc().trim().equals("PAGO ENTEL")) {
-                        qr = item.toString().replaceAll("<QR_ENT_G>", "");
-                        Image image = QR.create(qr);
-                        image.scaleAbsolute(75, 75);
-                        image.setAlignment(Image.ALIGN_RIGHT);
-                        float x = doc.getPageSize().getWidth() - (110 - servicio.getMarginLeft().floatValue());
-//                        float y = (doc.getPageSize().getHeight() * page) + (doc.getPageSize().getHeight() - (line * 12.7f));
-                        float sizefont = paragraph.getLeading();
-                        float y = (doc.getPageSize().getHeight() - (sizefont * (line + 1)));
+                    qr = item.toString().replaceAll("<QR_ENT_G>", "");
+                    Image image = QR.create(qr);
+                    image.scaleAbsolute(servicio.getQrScale().floatValue(), servicio.getQrScale().floatValue());
+                    if (servicio.getTesDetalleVc().trim().equals("PAGO ENTEL")
+                            || servicio.getTesDetalleVc().trim().equals("PAGO TELECEL")
+                            || servicio.getTesDetalleVc().trim().equals("PAGO NUEVATEL")
+                            || servicio.getTesDetalleVc().trim().equals("PAGO TIGOSTAR (MULTIVISION)")) {
+                        float y = (doc.getPageSize().getHeight() - (paragraph.getLeading() * (line + 1)));
+                        float x = 0;
+                        if (servicio.getTesDetalleVc().trim().equals("PAGO ENTEL")) {
+                            image.setAlignment(Image.ALIGN_RIGHT);
+                            x = doc.getPageSize().getWidth() - (110 - servicio.getMarginLeft().floatValue());
+                        }
+                        if (servicio.getTesDetalleVc().trim().equals("PAGO TELECEL")) {
+                            image.setAlignment(Image.ALIGN_LEFT);
+                            x = 30;
+                            y -= (servicio.getQrScale().floatValue() - (paragraph.getLeading() * 2));
+                        }
+                        if (servicio.getTesDetalleVc().trim().equals("PAGO NUEVATEL")) {
+                            image.setAlignment(Image.ALIGN_LEFT);
+                            x = doc.getPageSize().getWidth() - (120 - servicio.getMarginLeft().floatValue());
+                            y -= (servicio.getQrScale().floatValue() - (paragraph.getLeading()));
+                        }
+                        if (servicio.getTesDetalleVc().trim().equals("PAGO TIGOSTAR (MULTIVISION)")) {
+                            image.setAlignment(Image.ALIGN_LEFT);
+                            x = doc.getPageSize().getWidth() - (120 - servicio.getMarginLeft().floatValue());
+                            y -= (servicio.getQrScale().floatValue() - (paragraph.getLeading()));
+                        }
                         image.setAbsolutePosition(x, y);
-                        doc.add(image);
                     }
+                    doc.add(image);
                 }
                 if (servicio.getDelimitador().equals(item.toString().trim())) {
                     line = 0;

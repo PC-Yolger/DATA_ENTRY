@@ -10,6 +10,7 @@ import Model.app.HibernateUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -59,7 +60,7 @@ public class FacturaRepository {
         return obj;
     }
 
-    public List<TblServicioFactura> Search(String sucursal, String servicio) {
+    public List<TblServicioFactura> Search(String sucursal, String servicio, Date inicio, Date fin) {
         Session s = HibernateUtil.getSessionFactory().getCurrentSession();
         List<TblServicioFactura> lst = new ArrayList<TblServicioFactura>();
         try {
@@ -70,6 +71,9 @@ public class FacturaRepository {
             }
             if (!"".equals(servicio)) {
                 criteria.add(Restrictions.eq("tesCodigoSintesisBi", Integer.parseInt(servicio)));
+            }
+            if (!"".equals(inicio) && !"".equals(fin)) {
+                criteria.add(Restrictions.between("tesFechaCreacionDt", inicio, fin));
             }
             lst = criteria.list();
             s.getTransaction().commit();
